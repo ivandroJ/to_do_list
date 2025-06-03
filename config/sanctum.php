@@ -3,7 +3,6 @@
 use Laravel\Sanctum\Sanctum;
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Stateful Domains
@@ -80,5 +79,18 @@ return [
         'encrypt_cookies' => Illuminate\Cookie\Middleware\EncryptCookies::class,
         'validate_csrf_token' => Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class,
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Sanctum Database Connection
+    |--------------------------------------------------------------------------
+    |
+    | This option allows you to specify the database connection that should be
+    | used by Sanctum when storing personal access tokens. You may use this
+    | to override the default connection for more control or separation.
+    |
+    */
+
+    'connection' => env('SANCTUM_CONNECTION', 'mysql'),
 
 ];
