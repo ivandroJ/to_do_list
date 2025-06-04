@@ -55,7 +55,9 @@ class GenerateAuthTokenService
         }
 
         return response()->json([
-            'token' => $user->createToken('api-token')->plainTextToken,
+            "data" => [
+                'token' => $user->createToken('api-token')->plainTextToken,
+            ]
         ]);
     }
 }

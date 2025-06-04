@@ -4,6 +4,7 @@ namespace App\Services\TodoTask\V1;
 
 use App\Data\V1\TodoTaskData;
 use App\Models\TodoTask;
+use App\TodoTaskStatusEnum;
 use Illuminate\Support\Facades\Auth;
 
 class ListTodoTasksByUserService
@@ -16,8 +17,28 @@ class ListTodoTasksByUserService
             });
 
 
-        return TodoTaskData::collect(
-            Auth::user()->todoTasks
-        );
+        return $this->validate($by_status) ?:
+            response()->json([
+                'data' => $query->get()->map(fn($task) => TodoTaskData::from($task))
+            ]);
+    }
+
+    private function validate($status)
+    {
+        if (!is_null($status)) {
+
+            $validStatuses = array_map(fn($case) => $case->label(), TodoTaskStatusEnum::cases());
+
+            if (!in_array($status, $validStatuses)) {
+                return response()->json([
+                    'message' => 'Invalid status provided.',
+                    'errors' => [
+                        'status' => 'The provided status is not valid.'
+                    ]
+                ], 422);
+            }
+        }
+
+        return null;
     }
 }

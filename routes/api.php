@@ -3,12 +3,13 @@
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\TodoTaskController;
 use App\Http\Controllers\Api\V1\UserController;
+use App\Http\Middleware\ForceJsonResponse;
 use App\Http\Middleware\isTodoTaskOwnerMiddleware;
 use App\Http\Middleware\TokenAuthMiddleware;
 use Illuminate\Support\Facades\Route;
 
 
-Route::prefix('v1')->group(function () {
+Route::prefix('v1')->middleware(ForceJsonResponse::class)->group(function () {
     Route::prefix('todo-tasks')
         ->middleware(TokenAuthMiddleware::class)
         ->group(function () {

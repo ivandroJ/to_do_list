@@ -22,7 +22,11 @@ class TodoTaskFactory extends Factory
             'title' => $this->faker->sentence(6, true),
             'description' => $this->faker->paragraph(),
             'user_id' => User::factory(),
-            'status' => TodoTaskStatusEnum::PENDING->label(),
+            'status' => $this->faker->randomElement([
+                TodoTaskStatusEnum::PENDING->label(),
+                TodoTaskStatusEnum::COMPLETED->label(),
+                TodoTaskStatusEnum::IN_PROGRESS->label(),
+            ]),
         ];
     }
 }

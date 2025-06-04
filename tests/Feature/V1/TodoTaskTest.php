@@ -60,6 +60,25 @@ class TodoTaskTest extends TestCase
             ]);
     }
 
+    public function test_todo_task_index_with_status_filter()
+    {
+        $user = User::factory()
+            ->has(TodoTask::factory()->count(5)->state(['status' => TodoTaskStatusEnum::COMPLETED->label()]))
+            ->has(TodoTask::factory()->count(5)->state(['status' => TodoTaskStatusEnum::PENDING->label()]))
+            ->create();
+        $token = $user->createToken('test-token')->plainTextToken;
+
+        $response =  $this->withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->getJson('/api/v1/todo-tasks?by_status=' . TodoTaskStatusEnum::COMPLETED->label());
+
+        $response->assertStatus(200)
+            ->assertJsonFragment([
+                'status' => TodoTaskStatusEnum::COMPLETED->label(),
+            ])
+            ->assertJsonCount(5, 'data');
+    }
+
 
     public function test_todo_task_update(): void
     {
@@ -70,6 +89,7 @@ class TodoTaskTest extends TestCase
             'user_id' => $user->id,
             'title' => 'Initial Task',
             'description' => 'This is the initial task description.',
+            'status' => TodoTaskStatusEnum::PENDING->label(),
         ]);
 
         $response = $this->withHeader('Authorization', 'Bearer ' . $token)

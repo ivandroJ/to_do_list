@@ -14,7 +14,7 @@ class UpdateTodoTaskStatusService
 
     public function __construct(
         $todo_task_id,
-        private String $new_status
+        private ?String $new_status
     ) {
         $this->todoTask = TodoTask::find($todo_task_id);
     }

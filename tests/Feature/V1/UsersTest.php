@@ -36,4 +36,23 @@ class UsersTest extends TestCase
             'email' => $response->json('data.email'),
         ]);
     }
+
+    public function test_user_login()
+    {
+        $user = \App\Models\User::factory()->create([
+            'password' => bcrypt('password123'),
+        ]);
+
+        $response = $this->postJson('/api/v1/auth', [
+            'email' => $user->email,
+            'password' => 'password123',
+        ]);
+
+        $response->assertStatus(200)
+            ->assertJsonStructure([
+                'data' => [
+                    'token',
+                ],
+            ]);
+    }
 }
