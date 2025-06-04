@@ -6,6 +6,21 @@ use App\TodoTaskStatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @OA\Schema(
+ *     schema="TodoTask",
+ *     type="object",
+ *     title="TodoTask",
+ *     required={"title", "description", "user_id", "status"},
+ *     @OA\Property(property="id", type="integer", readOnly=true),
+ *     @OA\Property(property="title", type="string"),
+ *     @OA\Property(property="description", type="string"),
+ *     @OA\Property(property="user_id", type="integer"),
+ *     @OA\Property(property="status", type="string", enum={"Pendente", "Em andamento", "Concluída"}, description="Todo Task Status"),
+ *     @OA\Property(property="created_at", type="string", format="date-time", readOnly=true),
+ *     @OA\Property(property="updated_at", type="string", format="date-time", readOnly=true)
+ * )
+ */
 class TodoTask extends Model
 {
     use HasFactory;

@@ -18,8 +18,26 @@ use Illuminate\Support\Facades\Auth;
 
 class TodoTaskController extends Controller
 {
+
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/api/v1/todo-tasks",
+     *     summary="Get a list of todo tasks for the authenticated user",
+     *     tags={"TodoTasks"},
+     *     @OA\Parameter(
+     *         name="by_status",
+     *         in="query",
+     *         description="Filter tasks by status",
+     *         required=false,
+     *         @OA\Schema(type="string")
+     *     ),
+     *  @OA\Response(
+     *         response=200,
+     *         description="List of todo tasks",
+     *         @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/TodoTask"))
+     *     ),
+     *     security={{"bearerAuth":{}}}
+     * )
      */
     public function index(Request $request, ListTodoTasksByUserService $listTodoTasksByUserService)
     {
@@ -27,7 +45,21 @@ class TodoTaskController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *     path="/api/v1/todo-tasks",
+     *     summary="Create a new todo task",
+     *     tags={"TodoTasks"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/TodoTask")
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Todo task created successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/TodoTask")
+     *     ),
+     *     security={{"bearerAuth":{}}}
+     * )
      */
     public function store(StoreTodoTaskRequest $request, CreateTodoTaskService $createTodoTaskService)
     {
@@ -37,8 +69,30 @@ class TodoTaskController extends Controller
     }
 
 
+
     /**
-     * Display the specified resource.
+     * @OA\Get(
+     *     path="/api/v1/todo-tasks/{id}",
+     *     summary="Get a specific todo task by ID",
+     *     tags={"TodoTasks"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID of the todo task",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Todo task details",
+     *         @OA\JsonContent(ref="#/components/schemas/TodoTask")
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Todo task not found"
+     *     ),
+     *     security={{"bearerAuth":{}}}
+     * )
      */
     public function show($id, FindTodoTaskService $findTodoTaskService)
     {
@@ -46,7 +100,40 @@ class TodoTaskController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * @OA\Put(
+     *     path="/api/v1/todo-tasks/{id}",
+     *     summary="Update the status of a todo task",
+     *     tags={"TodoTasks"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID of the todo task",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             type="object",
+     *             required={"status"},
+     *             @OA\Property(
+     *                 property="status",
+     *                 type="string",
+     *                 description="The new status for the todo task"
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Todo task status updated successfully",
+     *         @OA\JsonContent(ref="#/components/schemas/TodoTask")
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Invalid status provided"
+     *     ),
+     *     security={{"bearerAuth":{}}}
+     * )
      */
     public function update(UpdateTodoTaskRequest $request, $id)
     {
@@ -56,7 +143,27 @@ class TodoTaskController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @OA\Delete(
+     *     path="/api/v1/todo-tasks/{id}",
+     *     summary="Delete a todo task",
+     *     tags={"TodoTasks"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID of the todo task",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=204,
+     *         description="Todo task deleted successfully"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Todo task not found"
+     *     ),
+     *     security={{"bearerAuth":{}}}
+     * )
      */
     public function destroy($id, DeleteTodoTaskService $deleteTodoTaskService)
     {
