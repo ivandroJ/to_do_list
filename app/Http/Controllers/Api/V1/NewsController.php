@@ -16,6 +16,8 @@ class NewsController extends Controller
             $request->input('q', null)
         );
 
-        return response()->json($newsList);
+        return response()->json([
+            'data' => $newsList,
+        ]);
     }
 }

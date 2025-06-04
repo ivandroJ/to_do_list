@@ -12,6 +12,7 @@ use Tests\TestCase;
 
 class TodoTaskTest extends TestCase
 {
+    use RefreshDatabase, WithFaker;
 
     public function test_todo_task_create()
     {

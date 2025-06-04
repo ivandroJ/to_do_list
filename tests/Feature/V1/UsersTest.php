@@ -8,9 +8,7 @@ use Tests\TestCase;
 
 class UsersTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     */
+    use RefreshDatabase, WithFaker;
 
     public function test_user_registation()
     {
