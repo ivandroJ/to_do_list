@@ -6,15 +6,12 @@ use App\Data\V1\TodoTaskData;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TodoTask\V1\StoreTodoTaskRequest;
 use App\Http\Requests\TodoTask\V1\UpdateTodoTaskRequest;
-use App\Models\TodoTask;
 use App\Services\TodoTask\V1\CreateTodoTaskService;
 use App\Services\TodoTask\V1\DeleteTodoTaskService;
 use App\Services\TodoTask\V1\FindTodoTaskService;
 use App\Services\TodoTask\V1\ListTodoTasksByUserService;
 use App\Services\TodoTask\V1\UpdateTodoTaskStatusService;
-use App\TodoTaskStatusEnum;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class TodoTaskController extends Controller
 {
@@ -67,8 +64,6 @@ class TodoTaskController extends Controller
 
         return $createTodoTaskService->execute($todoTaskData);
     }
-
-
 
     /**
      * @OA\Get(

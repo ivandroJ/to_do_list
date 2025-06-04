@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\NewsController;
 use App\Http\Controllers\Api\V1\TodoTaskController;
 use App\Http\Controllers\Api\V1\UserController;
 use App\Http\Middleware\ForceJsonResponse;
@@ -27,4 +28,6 @@ Route::prefix('v1')->middleware(ForceJsonResponse::class)->group(function () {
 
     Route::post('auth', [AuthController::class, 'auth']);
     Route::post('/users/register', [UserController::class, 'store']);
+
+    Route::get('/news/top', [NewsController::class, 'top']);
 });

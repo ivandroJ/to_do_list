@@ -1,61 +1,188 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+````markdown
+# 📝 Todo List API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+API simples desenvolvida em **Laravel 12** para gerenciamento de tarefas (_To-Do List_). Permite criar, listar, atualizar e remover tarefas.
 
-## About Laravel
+## ✅ Requisitos
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- PHP >= 8.2  
+- Composer  
+- MySQL (ou outro banco de dados compatível)  
+- Laravel CLI  
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## ⚙️ Como configurar o projeto
 
-## Learning Laravel
+1. **Clone o repositório:**
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+```bash
+git clone https://github.com/ivandroJ/to_do_list.git
+cd to_do_list
+````
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+2. **Instale as dependências PHP:**
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```bash
+composer install
+```
 
-## Laravel Sponsors
+3. **Copie o arquivo `.env.example` para `.env`:**
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```bash
+cp .env.example .env
+```
 
-### Premium Partners
+4. **Gere a chave da aplicação:**
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+```bash
+php artisan key:generate
+```
 
-## Contributing
+5. **Configure o banco de dados no arquivo `.env`:**
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=todo_list_db
+DB_USERNAME=seu_usuario
+DB_PASSWORD=sua_senha
+```
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 🗃️ Como rodar as migrations
 
-## Security Vulnerabilities
+Certifique-se de que o banco de dados está criado e acessível.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+php artisan migrate
+```
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 🚀 Como executar o servidor local
+
+```bash
+php artisan serve
+```
+
+O servidor será iniciado em:
+📍 `http://localhost:8000`
+
+---
+
+## 🔍 Como testar a API
+
+### Endpoints disponíveis
+
+Acesse a documentação, com exemplos em:
+`http://localhost:8000/api/documentation`
+
+
+---
+
+## 🧪 Testes automatizados (opcional)
+
+```bash
+php artisan test
+```
+
+---
+
+## 📌 Notas
+
+* Este projeto segue a estrutura padrão de APIs RESTful.
+---
+
+## 👨‍💻 Autor
+
+Desenvolvido por \[Ivandro Culonguissa]
+
+---
+
+
+
+
+````markdown
+# 📝 NEWS API CLIENT
+
+## 🔐 Configuração da Chave de Acesso (API Key)
+
+Para consumir a API de notícias, é necessário configurar uma chave de acesso (API Key). Siga os passos abaixo:
+
+1. Registre-se ou autentique-se no site oficial da API de notícias [https://newsapi.org](https://newsapi.org).
+
+2. Gere sua chave de acesso (API Key) no painel da conta.
+
+3. Crie um arquivo `.env` na raiz do projeto e adicione a seguinte linha:
+
+   ```env
+   NEWS_API_KEY=sua_chave_aqui
+   ```
+
+---
+
+## 📡 Endpoint Criado
+
+A aplicação expõe o seguinte endpoint para consumir notícias da API:
+
+```http
+GET /api/news/top
+```
+
+### Parâmetros opcionais de query:
+
+| Parâmetro  | Descrição                              | Exemplo             |
+| ---------- | -------------------------------------- | ------------------- |
+| `q`        | Palavra-chave para busca               | `q=tecnologia`      |
+| `country`  | Código do país das notícias (ISO 3166) | `country=br`        |
+| `category` | Categoria da notícia                   | `category=business` |
+
+Exemplo completo de requisição:
+
+```http
+GET /api/news/top?q=tecnologia&country=br
+```
+
+---
+
+## 🧾 Exemplo de Resposta
+
+```json
+{
+  "status": "ok",
+  "totalResults": 2,
+  "articles": [
+    {
+      "source": {
+        "id": null,
+        "name": "G1"
+      },
+      "author": "João Silva",
+      "title": "Nova tecnologia revoluciona o mercado de IA",
+      "description": "Empresas apostam em inovação para se manterem competitivas.",
+      "url": "https://g1.globo.com/tecnologia/noticia/...",
+      "urlToImage": "https://g1.globo.com/tecnologia/imagem.jpg",
+      "publishedAt": "2025-06-01T12:00:00Z",
+      "content": "O setor de tecnologia está em constante evolução..."
+    },
+    {
+      "source": {
+        "id": null,
+        "name": "Estadão"
+      },
+      "author": "Maria Oliveira",
+      "title": "Startups brasileiras atraem investimentos em 2025",
+      "description": "Crescimento do ecossistema de inovação no país.",
+      "url": "https://estadao.com.br/economia/startups2025",
+      "urlToImage": "https://estadao.com.br/img/startups.jpg",
+      "publishedAt": "2025-06-01T09:30:00Z",
+      "content": "O cenário para startups no Brasil continua favorável..."
+    }
+  ]
+}
+```
+
+
