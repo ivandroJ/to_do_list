@@ -139,9 +139,6 @@ Com os seguintes campos no corpo da requisição:
   "password": "sua_senha_segura"
 }
 ```
-
-Claro! Para refletir corretamente o fluxo de autenticação na sua aplicação Laravel utilizando Sanctum, você pode atualizar o arquivo `README.md` com as seguintes informações:
-
 ---
 
 ## 🔐 Autenticação
