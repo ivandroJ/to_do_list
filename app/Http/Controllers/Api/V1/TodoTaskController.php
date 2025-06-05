@@ -21,13 +21,16 @@ class TodoTaskController extends Controller
      *     path="/api/v1/todo-tasks",
      *     summary="Get a list of todo tasks for the authenticated user",
      *     tags={"TodoTasks"},
-     *     @OA\Parameter(
-     *         name="by_status",
-     *         in="query",
-     *         description="Filter tasks by status",
-     *         required=false,
-     *         @OA\Schema(type="string")
-     *     ),
+    *     @OA\Parameter(
+    *         name="by_status",
+    *         in="query",
+    *         description="Filter tasks by status. Allowed values: Pendente, Em andamento, Concluida",
+    *         required=false,
+    *         @OA\Schema(
+    *             type="string",
+    *             enum={"Pendente", "Em andamento", "Concluida"}
+    *         )
+    *     ),
      *  @OA\Response(
      *         response=200,
      *         description="List of todo tasks",

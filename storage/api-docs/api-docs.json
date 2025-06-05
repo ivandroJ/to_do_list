@@ -81,10 +81,15 @@
                     {
                         "name": "by_status",
                         "in": "query",
-                        "description": "Filter tasks by status",
+                        "description": "Filter tasks by status. Allowed values: Pendente, Em andamento, Concluida",
                         "required": false,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "enum": [
+                                "Pendente",
+                                "Em andamento",
+                                "Concluida"
+                            ]
                         }
                     }
                 ],
