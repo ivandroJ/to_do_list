@@ -4,6 +4,7 @@ namespace App\Services\TodoTask\V1;
 
 use App\Data\V1\TodoTaskData;
 use App\Models\TodoTask;
+use App\Notifications\TodoTasks\PendingTodoTaskNotification;
 use App\TodoTaskStatusEnum;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -53,15 +54,21 @@ class CreateTodoTaskService
 
     private function createTodoTask()
     {
+        $todoTask = TodoTask::create([
+            'title' => $this->todoTaskData->title,
+            'description' => $this->todoTaskData->description,
+            'user_id' => Auth::id(),
+            'status' => TodoTaskStatusEnum::PENDING->label(),
+        ]);
+
+        dispatch(function () use ($todoTask) {
+            Log::info('Creating notification for pending todo task', ['todo_task_id' => $todoTask->id]);
+            $todoTask->user->notify(new PendingTodoTaskNotification($todoTask));
+        })->onQueue('notifications');
 
         return response()->json([
             'message' => 'Tarefa criada com sucesso.',
-            'data' => TodoTaskData::from(TodoTask::create([
-                'title' => $this->todoTaskData->title,
-                'description' => $this->todoTaskData->description,
-                'user_id' => Auth::id(),
-                'status' => TodoTaskStatusEnum::PENDING->label(),
-            ]))
+            'data' => TodoTaskData::from($todoTask)
         ], 201);
     }
 }
