@@ -1,5 +1,4 @@
 ## 📝 Todo List API
-
 ---
 API simples desenvolvida em **Laravel 12** para gerenciamento de tarefas (_To-Do List_). Permite criar, listar, atualizar e remover tarefas.
 
