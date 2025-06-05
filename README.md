@@ -52,6 +52,42 @@ DB_PASSWORD=sua_senha
 
 ---
 
+## 📧 Configuração de E-mail
+
+Para que o envio de notificações por e-mail funcione corretamente, configure as variáveis de ambiente no arquivo `.env`:
+
+```env
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.mailtrap.io   # ou smtp.gmail.com, smtp.office365.com etc.
+MAIL_PORT=587
+MAIL_USERNAME=seu_usuario
+MAIL_PASSWORD=sua_senha
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=exemplo@seudominio.com
+MAIL_FROM_NAME="${APP_NAME}"
+```
+
+> ⚠️ Certifique-se de usar credenciais válidas de um provedor SMTP (Mailtrap, Gmail, Outlook, etc.).
+
+---
+
+## 🛠️ Processamento de Filas de Notificações
+
+### 1. **Configurar a fila no `.env`**:
+
+```env
+QUEUE_CONNECTION=database
+```
+---
+
+### 2. **Iniciar o Worker da Fila `notifications`**
+
+```bash
+php artisan queue:work --queue=notifications
+```
+---
+
+
 ## 🗃️ Como rodar as migrations
 
 Certifique-se de que o banco de dados está criado e acessível.
@@ -80,6 +116,86 @@ O servidor será iniciado em:
 Acesse a documentação, com exemplos em:
 `http://localhost:8000/api/documentation`
 
+---
+
+## 🔐 Autenticação
+
+Para inserir uma nova tarefa, é necessário autenticar-se utilizando um token de acesso.
+
+### 📌 Registro de Usuário
+
+Para registrar um novo usuário e obter um token de acesso, envie uma requisição `POST` para o endpoint:
+
+```
+POST /api/v1/users/register
+```
+
+Com os seguintes campos no corpo da requisição:
+
+```json
+{
+  "name": "Seu Nome",
+  "email": "seuemail@exemplo.com",
+  "password": "sua_senha_segura"
+}
+```
+
+Claro! Para refletir corretamente o fluxo de autenticação na sua aplicação Laravel utilizando Sanctum, você pode atualizar o arquivo `README.md` com as seguintes informações:
+
+---
+
+## 🔐 Autenticação
+
+Para inserir uma nova tarefa, é necessário estar autenticado com um token de acesso.
+
+### 📌 Registro de Usuário
+
+Para registrar um novo usuário, envie uma requisição `POST` para o endpoint:
+
+```
+POST /api/v1/users/register
+```
+
+Com os seguintes campos no corpo da requisição:
+
+```json
+{
+  "name": "Seu Nome",
+  "email": "seuemail@exemplo.com",
+  "password": "sua_senha_segura"
+}
+```
+
+**Nota:** O processo de registro não retorna automaticamente um token de autenticação.
+
+### 🔑 Obtenção do Token de Acesso
+
+Após o registro, para obter um token de acesso, envie uma requisição `POST` para o endpoint:
+
+```
+POST /auth
+```
+
+Com os seguintes campos no corpo da requisição:
+
+```json
+{
+  "email": "seuemail@exemplo.com",
+  "password": "sua_senha_segura"
+}
+```
+
+A resposta incluirá um token de acesso que deve ser utilizado para autenticar as requisições subsequentes.
+
+### 📥 Utilização do Token
+
+Inclua o token de acesso no cabeçalho `Authorization` das suas requisições, utilizando o esquema Bearer:
+
+```
+Authorization: Bearer SEU_TOKEN_AQUI
+```
+
+Esse token deve ser enviado em todas as requisições para endpoints protegidos, como a criação de novas tarefas.
 
 ---
 
@@ -101,7 +217,6 @@ php artisan test
 Desenvolvido por \[Ivandro Culonguissa]
 
 ---
-
 
 
 
