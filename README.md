@@ -220,8 +220,8 @@ Desenvolvido por \[Ivandro Culonguissa]
 
 
 
-````markdown
-# 📝 NEWS API CLIENT
+
+## 📝 NEWS API CLIENT
 
 ## 🔐 Configuração da Chave de Acesso (API Key)
 
