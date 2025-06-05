@@ -105,6 +105,10 @@ Desenvolvido por \[Ivandro Culonguissa]
 
 
 
+
+
+
+
 ````markdown
 # 📝 NEWS API CLIENT
 
@@ -184,5 +188,13 @@ GET /api/news/top?q=tecnologia&country=br
   ]
 }
 ```
+---
 
+## 🧾 Exemplo Implementado
+
+Com o servidor local iniciado, acesse:
+
+`http://127.0.0.1:8000/news/top`
+
+Como exemplo de implementação no front-end.
 
