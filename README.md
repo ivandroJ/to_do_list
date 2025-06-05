@@ -1,6 +1,5 @@
-````markdown
-# 📝 Todo List API
-````
+## 📝 Todo List API
+
 ---
 API simples desenvolvida em **Laravel 12** para gerenciamento de tarefas (_To-Do List_). Permite criar, listar, atualizar e remover tarefas.
 
@@ -20,7 +19,7 @@ API simples desenvolvida em **Laravel 12** para gerenciamento de tarefas (_To-Do
 ```bash
 git clone https://github.com/ivandroJ/to_do_list.git
 cd to_do_list
-
+````
 
 2. **Instale as dependências PHP:**
 
